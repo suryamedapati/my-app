@@ -124,7 +124,20 @@ const leave = () => {
   };
 
   const handleGoToHome = () => {
-    navigate("/home/welcome");
+    const token = localStorage.getItem("token");
+    let role = null;
+  
+              const decoded = jwtDecode(token);
+              role =
+                decoded.role || decoded.authorities?.[0] || decoded.userRole || null;
+            
+    
+            // ✅ Route based on role
+            if (role && role.toLowerCase() === "admin") {
+              navigate("/home/welcome");
+            } else {
+              navigate("/userhome/welcome");
+            }
   };
 
   return (

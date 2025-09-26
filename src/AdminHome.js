@@ -2,7 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Home.css";
 
-export default function Home() {
+export default function AdminHome() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
@@ -13,7 +13,7 @@ export default function Home() {
 
     try {
       const payload = JSON.parse(atob(token.split(".")[1])); 
-      const userName = payload.sub; // subject = policyNumber in backend
+      const userName = payload.sub; // subject = userName in backend
 
       fetch(`http://localhost:8080/api/employees/${userName}`, {
         method: "GET",
@@ -76,7 +76,7 @@ export default function Home() {
             <button>View my Leaves</button>
           </Link>
           <Link to="delete">
-            <button>Remove User</button>
+            <button>Remove Employee</button>
           </Link>
           <Link to="changePassword">
             <button>Change Password</button>

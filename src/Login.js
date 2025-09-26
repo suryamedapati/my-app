@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import "./Login.css";
 
 export default function Login() {
@@ -19,11 +20,31 @@ export default function Login() {
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem("token", data.data.token);
+        const token = data.data.token;
+        localStorage.setItem("token", token);
+
+        // ✅ Decode JWT to extract role
+        let role = null;
+        try {
+          const decoded = jwtDecode(token);
+          role =
+            decoded.role || decoded.authorities?.[0] || decoded.userRole || null;
+        } catch (err) {
+          console.error("Invalid token", err);
+        }
+
         setMessage("✅ Login successful!");
-        navigate("/home/welcome");
+
+        // ✅ Route based on role
+        if (role && role.toLowerCase() === "admin") {
+          navigate("/home/welcome");
+        } else {
+          navigate("/userhome/welcome");
+        }
       } else {
-        setMessage(data.message || "❌ Login failed, please check your credentials.");
+        setMessage(
+          data.message || "❌ Login failed, please check your credentials."
+        );
       }
     } catch (error) {
       setMessage("⚠️ Something went wrong. Please try again.");
@@ -67,7 +88,11 @@ export default function Login() {
           <button type="submit" className="btn primary">
             🚀 Login
           </button>
-          <button type="button" className="btn secondary" onClick={handleForgotPassword}>
+          <button
+            type="button"
+            className="btn secondary"
+            onClick={handleForgotPassword}
+          >
             🔑 Forgot Password?
           </button>
         </div>

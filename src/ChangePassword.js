@@ -94,7 +94,21 @@ export default function ChangePassword() {
             {message}
           </p>
           <button
-            onClick={() => navigate("/home/welcome")}
+            onClick={() =>{const token = localStorage.getItem("token");
+                let role = null;
+              
+                          const decoded = jwtDecode(token);
+                          role =
+                            decoded.role || decoded.authorities?.[0] || decoded.userRole || null;
+                        
+                
+                        // ✅ Route based on role
+                        if (role && role.toLowerCase() === "admin") {
+                          navigate("/home/welcome");
+                        } else {
+                          navigate("/userhome/welcome");
+                        }}
+               }
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded shadow"
           >
             Back to Home
