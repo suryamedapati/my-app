@@ -69,7 +69,12 @@ export default function Home() {
           <Link to="manageLeaves">
             <button>Manage Leaves</button>
           </Link>
-          
+          <Link to="viewEmployeeLeaves">
+            <button>View Leave Requests</button>
+          </Link>
+          <Link to="viewMyLeaves">
+            <button>View my Leaves</button>
+          </Link>
           <Link to="delete">
             <button>Remove User</button>
           </Link>
@@ -93,4 +98,4 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+}gi

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ForgotResetPassword() {
-  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -19,16 +19,16 @@ export default function ForgotResetPassword() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId }),
+          body: JSON.stringify({ userName }),
         }
       );
 
-      const data = await response.json();
+      const data = await response.text(); // ✅ backend returns string
       if (response.ok) {
-        setMessage(data.message || "OTP sent to your registered email.");
+        setMessage(data || "OTP sent successfully.");
         setStep("reset");
       } else {
-        setMessage(data.message || "Failed to send OTP.");
+        setMessage(data || "Failed to send OTP.");
       }
     } catch (err) {
       setMessage("Something went wrong. Please try again.");
@@ -49,12 +49,12 @@ export default function ForgotResetPassword() {
         }
       );
 
-      const data = await response.json();
+      const data = await response.text(); // ✅ backend returns string
       if (response.ok) {
-        setMessage("Password Reset Successfully!!!");
+        setMessage(data || "Password reset successfully!");
         setStep("success");
       } else {
-        setMessage(data.message || "Failed to reset password.");
+        setMessage(data || "Failed to reset password.");
       }
     } catch (err) {
       setMessage("Something went wrong. Please try again.");
@@ -72,12 +72,12 @@ export default function ForgotResetPassword() {
             </h2>
 
             <div>
-              <label className="block text-gray-700 mb-1">User ID:</label>
+              <label className="block text-gray-700 mb-1">User Name:</label>
               <input
                 type="text"
-                value={userId}
-                placeholder="Enter User ID"
-                onChange={(e) => setUserId(e.target.value)}
+                value={userName}
+                placeholder="Enter User Name"
+                onChange={(e) => setUserName(e.target.value)}
                 required
                 className="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
               />

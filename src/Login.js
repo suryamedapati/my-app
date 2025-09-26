@@ -20,13 +20,13 @@ export default function Login() {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("token", data.data.token);
-        setMessage("Login successful");
+        setMessage("✅ Login successful!");
         navigate("/home/welcome");
       } else {
-        setMessage(data.message || "Login failed, please check your credentials.");
+        setMessage(data.message || "❌ Login failed, please check your credentials.");
       }
     } catch (error) {
-      setMessage("Something went wrong. Please try again.");
+      setMessage("⚠️ Something went wrong. Please try again.");
       console.error(error);
     }
   };
@@ -38,8 +38,8 @@ export default function Login() {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
-        <h1 className="brand">Employeee Leave Management System</h1>
-        <h3 className="title">Login</h3>
+        <h1 className="brand">🌐 Employee Leave Management System</h1>
+        <h3 className="title">Welcome Back</h3>
 
         <div className="form-group">
           <label>User Name</label>
@@ -48,6 +48,7 @@ export default function Login() {
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
             required
+            placeholder="Enter your username"
           />
         </div>
 
@@ -58,15 +59,16 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Enter your password"
           />
         </div>
 
         <div className="button-group">
           <button type="submit" className="btn primary">
-            Login
+            🚀 Login
           </button>
           <button type="button" className="btn secondary" onClick={handleForgotPassword}>
-            Forgot Password?
+            🔑 Forgot Password?
           </button>
         </div>
 

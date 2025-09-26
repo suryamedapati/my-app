@@ -6,6 +6,9 @@ import ForgotPassword from "./ForgotPassword";
 import CreateEmployee from "./CreateEmployee";
 import ApplyLeave from "./ApplyLeave"
 import ManageLeaves from "./ManageLeaves";
+import ViewEmployeeLeaves from "./ViewEmployeeLeaves";
+import ViewMyLeaves from "./ViewMyLeaves";
+import ChangePassword from "./ChangePassword";
 
 function App() {
   return (
@@ -17,6 +20,12 @@ function App() {
         <Route path="create" element={<CreateEmployee />}/>
         <Route path="applyLeave" element={<ApplyLeave />}/>
         <Route path="manageLeaves" element={<ManageLeaves />}/>
+        <Route path="viewEmployeeLeaves" element={<ViewEmployeeLeaves />}/>
+        <Route path="viewMyLeaves" element={<ViewMyLeaves />}/>
+        <Route path="changePassword" element={<ChangePassword />}/>
+        
+
+        
       </Route>
     </Routes>
   );
